@@ -1,6 +1,5 @@
 <template>
   <div class="hello">
-    <el-button @click="testClick">测试</el-button>
     <el-button type="primary" @click="handleClick1">通用项目-弹窗</el-button>
     <el-button type="primary" @click="handleClick2">定制任务-弹窗</el-button>
   </div>
@@ -26,10 +25,6 @@ export default defineComponent({
   computed: {},
   methods: {
     ...mapActions("taskDialogStore", [OPEN_TASK]),
-    ...mapMutations("taskDialogStore", ["openTestDialog"]),
-    testClick() {
-      this.openTestDialog();
-    },
     handleClick1() {
       return;
     },
@@ -37,6 +32,11 @@ export default defineComponent({
       const res = {
         id: 1234,
         taskName: "测试任务名称",
+        masterTaskCode:"0000",
+        nodeCode: "0000-0001",
+        baseFormDto: {
+          
+        }
       };
       this[OPEN_TASK](res);
     },

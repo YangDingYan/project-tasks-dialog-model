@@ -10,7 +10,6 @@ export default {
     TaskInfo: new TaskInfo(),
     taskInfos: [], // 是否可以用Map重写?
     visible: {},
-    testVisible: false
   },
   getters: {
     getVisible(state: any) {
@@ -35,15 +34,12 @@ export default {
       // state.visible = visible;
       state.visible[value.id] = true;
     },
-    openTestDialog(state: any) {
-      state.testVisible = true;
-    },
     [CLOSE_TASK](state: any, value: any) {
       const visible = Object.assign({}, state.visible);
       setTimeout(() => {
         delete visible[value.id];
         state.visible = visible;
-      }, 300);
+      }, 200);
     },
     [CLOSED_TASK](state: any, value: any) {
       const taskIndex = state.taskInfos.findIndex((task:any) => {
@@ -66,15 +62,14 @@ export default {
       _store.commit(OPEN_TASK, task);
       setTimeout(() => {
         _store.commit(OPEN_TASK_DIALOG, task);
-      }, 300);
+      }, 200);
     },
     [CLOSE_TASK](_store:any, task:any){
-      console.log("rrrr")
       _store.commit(CLOSE_TASK_DIALOG, task);
       setTimeout(() => {
         _store.commit(CLOSE_TASK, task);
         _store.commit(CLOSED_TASK, task);
-      }, 300)
+      }, 200)
     }
   },
   namespaced: true,

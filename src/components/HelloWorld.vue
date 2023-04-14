@@ -5,13 +5,11 @@
     <template v-for="task in taskInfos">
       <task-dialog
         v-if="visible[task.id]"
-        v-show="visible[task.id]"
         :key="task.id"
-        :taskInfo="testee(task)"
+        :taskInfo="task"
         :dialogVisible="visible[task.id]"
       ></task-dialog>
     </template>
-    <el-dialog v-model="testVisible"></el-dialog>
     <!-- 系统布局路由 -->
     <router-view></router-view>
   </div>
@@ -41,14 +39,10 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapState("taskDialogStore", ["taskInfos", "visible", "testVisible"]),
+    ...mapState("taskDialogStore", ["taskInfos", "visible"]),
   },
   methods: {
     ...mapActions("taskDialogStore", [OPEN_TASK, CLOSE_TASK]),
-    testee(task:any) {
-      console.log('ttt', task);
-      return task;
-    }
   },
 });
 </script>

@@ -2,9 +2,21 @@ import { defineComponent } from "vue";
 import { mapActions } from "vuex";
 import { CLOSE_TASK } from "./constants/operates-type";
 import { TaskInfo } from "./types/TaskInfo";
+import TaskInfoMixin from "./mixins/task-info";
+
+//! 内置dialog模块组件引用
+import TaskDialogHeader from "./components/task-dialog-header/task-dialog-header.vue";
+import TaskDialogContent from "./components/task-dialog-content/task-dialog-content.vue";
+import TaskDialogFooter from "./components/task-dialog-footer/task-dialog-footer.vue";
 
 export default defineComponent({
   name: "task-dialog",
+  mixins: [TaskInfoMixin],
+  components: {
+    TaskDialogHeader,
+    TaskDialogContent,
+    TaskDialogFooter
+  },
   props: {
     dialogVisible: {
       type: Boolean,
@@ -12,25 +24,26 @@ export default defineComponent({
     },
     taskInfo: {
       type: TaskInfo,
-      default: () => { }
+      default: () => {
+        return {}
+      }
     }
   },
   computed: {
-    dialogVisibleSelf(): Boolean {
+    dialogVisibleSelf() {
       return this.dialogVisible;
     }
   },
   methods: {
     ...mapActions("taskDialogStore", [CLOSE_TASK]),
     handleTaskDialogClose() {
-      // debugger;
       this[CLOSE_TASK](this.taskInfo);
     },
     beforeClose(done: any) {
-      debugger;
+      done();
     }
   },
   mounted() {
-    console.log('eee')
+    return;
   }
 })
